@@ -1,0 +1,50 @@
+{{define "upload"}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload New Media</title>
+  </head>
+  <body>
+    <h4>Upload New Media</h4>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" placeholder="Media Name" required />
+      </div>
+
+      <div>
+        <label for="media">Select File</label>
+        <input id="media" name="media" type="file" accept="audio/mpeg,video/mp4,video/webm,audio/wav" required />
+      </div>
+
+      <button type="submit">Upload</button>
+    </form>
+  </body>
+</html>
+{{end}}
+
+{{define "upload-received"}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Received Upload...</title>
+  </head>
+  <body>
+    {{if not .Errors}}
+      <p>Upload received successfully, processing</p>
+      <a href="/upload">Upload more?</a>
+    {{else}}
+      <p>Upload had errors...</p>
+      {{range .Errors}}
+        <p style="color: red">{{.}}</p>
+      {{end}}
+      <hr>
+      <a href="/upload">Try again?</a>
+    {{end}}
+  </body>
+</html>
+{{end}}
